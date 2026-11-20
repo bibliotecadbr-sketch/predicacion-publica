@@ -98,7 +98,7 @@
     <button class="secondary" onclick="addFormatRow()">+ Agregar fila</button>
    </div>
   </div>
-  <p class="muted small">Los turnos se agrupan en una fila por fecha y ubicación. Los horarios de la misma ubicación se reúnen en una sola celda. Puedes editar títulos y celdas, añadir o eliminar filas y columnas antes de imprimir.</p>
+  <p class="muted small">Los turnos se agrupan en una fila por fecha y ubicación. Los horarios y los publicadores programados para esa ubicación se reúnen en sus respectivas celdas. Puedes editar títulos y celdas, añadir o eliminar filas y columnas antes de imprimir.</p>
  </div>
  <div class="card" style="margin-top:14px">
   <div><h2 style="text-align:center;margin:0 0 5px">Programación de Predicación Pública</h2><p id="formatMonthTitle" style="text-align:center;margin:0 0 14px"></p></div>
@@ -158,7 +158,17 @@ function refreshTurnDropdowns(){
 
 const FORMAT_KEY='predicacionPublica_formato_cartelera_v1';
 let formatState=loadFormatState();
-function loadFormatState(){try{const v=JSON.parse(localStorage.getItem(FORMAT_KEY)||'null');if(v&&Array.isArray(v.columns)&&Array.isArray(v.rows))return v}catch(e){}return {columns:[{id:'fecha',title:'Fecha'},{id:'ubicacion',title:'Ubicación'},{id:'horarios',title:'Horarios'}],rows:[]}}
+function loadFormatState(){
+ try{
+  const v=JSON.parse(localStorage.getItem(FORMAT_KEY)||'null');
+  if(v&&Array.isArray(v.columns)&&Array.isArray(v.rows)){
+   if(!v.columns.some(c=>c.id==='publicadores'))v.columns.push({id:'publicadores',title:'Publicadores programados'});
+   v.rows.forEach(r=>{if(r.publicadores===undefined)r.publicadores=''});
+   return v;
+  }
+ }catch(e){}
+ return {columns:[{id:'fecha',title:'Fecha'},{id:'ubicacion',title:'Ubicación'},{id:'horarios',title:'Horarios'},{id:'publicadores',title:'Publicadores programados'}],rows:[]};
+}
 function saveFormatState(){try{localStorage.setItem(FORMAT_KEY,JSON.stringify(formatState));renderFormatTable();return true}catch(e){notify('No se pudo guardar el formato en este navegador.',true);return false}}
 function formatMonthLabel(m){if(!m)return '';const [y,mo]=m.split('-').map(Number);return new Date(y,mo-1,1).toLocaleDateString('es',{month:'long',year:'numeric'});}
 function makeFormatRow(values={}){const row={};formatState.columns.forEach(c=>row[c.id]=values[c.id]??'');return row}
@@ -167,15 +177,18 @@ function generateFormatRows(){
  const groups=new Map();
  records.filter(r=>(r.fecha||'').startsWith(month)).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||'')||(a.ubicacion||'').localeCompare(b.ubicacion||'')).forEach(r=>{
   const key=(r.fecha||'')+'|'+(r.ubicacion||'').trim().toLocaleLowerCase('es');
-  if(!groups.has(key))groups.set(key,{fecha:r.fecha||'',ubicacion:r.ubicacion||'',horarios:[]});
-  const g=groups.get(key);if(r.horario&&!g.horarios.includes(r.horario))g.horarios.push(r.horario);
+  if(!groups.has(key))groups.set(key,{fecha:r.fecha||'',ubicacion:r.ubicacion||'',horarios:[],publicadores:[]});
+  const g=groups.get(key);
+  if(r.horario&&!g.horarios.includes(r.horario))g.horarios.push(r.horario);
+  (r.publicadores||'').split(/[,;]+/).map(n=>n.trim()).filter(Boolean).forEach(n=>{if(!g.publicadores.some(x=>x.toLocaleLowerCase('es')===n.toLocaleLowerCase('es')))g.publicadores.push(n)});
  });
  if(!formatState.columns.some(c=>c.id==='fecha'))formatState.columns.unshift({id:'fecha',title:'Fecha'});
  if(!formatState.columns.some(c=>c.id==='ubicacion'))formatState.columns.push({id:'ubicacion',title:'Ubicación'});
  if(!formatState.columns.some(c=>c.id==='horarios'))formatState.columns.push({id:'horarios',title:'Horarios'});
- formatState.rows=[...groups.values()].map(g=>makeFormatRow({fecha:g.fecha?dateLabel(g.fecha):'',ubicacion:g.ubicacion,horarios:g.horarios.join('\\n')}));
+ if(!formatState.columns.some(c=>c.id==='publicadores'))formatState.columns.push({id:'publicadores',title:'Publicadores programados'});
+ formatState.rows=[...groups.values()].map(g=>makeFormatRow({fecha:g.fecha?dateLabel(g.fecha):'',ubicacion:g.ubicacion,horarios:g.horarios.join('\\n'),publicadores:g.publicadores.join('\\n')}));
  formatState.month=month;saveFormatState();$('formatMonthTitle').textContent=formatMonthLabel(month);
- notify(`${formatState.rows.length} filas agrupadas desde los turnos del mes.`);
+ notify(`${formatState.rows.length} filas agrupadas con horarios y publicadores del mes.`);
 }
 function renderFormatTable(){
  const head=$('formatHead'),body=$('formatBody');if(!head||!body)return;
