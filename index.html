@@ -1,99 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Predicación Pública | Local</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registro de publicadores</title>
 <style>
-:root{--navy:#172554;--blue:#4f46e5;--blue2:#eef2ff;--bg:#f1f5f9;--ink:#1e293b;--muted:#64748b;--line:#e2e8f0;--white:#fff;--green:#15803d;--red:#be123c}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer;border:0;border-radius:9px;padding:9px 13px;font-weight:600}button:disabled{opacity:.5;cursor:not-allowed}.primary{background:var(--blue);color:white}.secondary{background:#e2e8f0;color:#334155}.success{background:#15803d;color:white}.danger{background:#ffe4e6;color:#9f1239}.top{background:#0f172a;color:white;padding:18px max(16px,calc((100% - 1180px)/2));display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.top h1{margin:0;font-size:21px}.top p{margin:3px 0 0;color:#cbd5e1;font-size:13px}.nav{background:#1e293b;padding:8px max(10px,calc((100% - 1180px)/2));display:flex;gap:6px;overflow:auto}.nav button{background:transparent;color:#e2e8f0;white-space:nowrap}.nav button.active{background:var(--blue);color:white}main{max-width:1180px;margin:auto;padding:22px 16px}.view{display:none}.view.active{display:block}.heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:17px}.heading h2{margin:0;font-size:24px}.sub{color:var(--muted);font-size:13px;margin:4px 0 0}.grid{display:grid;gap:14px}.stats{grid-template-columns:repeat(4,minmax(0,1fr))}.card{background:white;border:1px solid var(--line);border-radius:15px;padding:18px;box-shadow:0 1px 2px #0f172a08}.stat-label{font-size:13px;color:var(--muted)}.stat-num{font-size:30px;font-weight:750;margin-top:6px}.two{grid-template-columns:repeat(2,minmax(0,1fr))}.field{display:block;margin:12px 0}.field span{display:block;font-size:12px;font-weight:750;color:#475569;margin-bottom:5px}.field input{width:100%;padding:10px 11px;border:1px solid #cbd5e1;border-radius:9px;background:white}.form-card h3{margin:0 0 4px}.form-actions{margin-top:16px}.table-wrap{overflow:auto;background:white;border:1px solid var(--line);border-radius:14px}table{width:100%;border-collapse:collapse;min-width:680px}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#64748b;background:#f8fafc}tr:last-child td{border-bottom:0}.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.filters input{padding:9px;border:1px solid #cbd5e1;border-radius:9px}.calendar-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}.calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border-top:1px solid var(--line);border-left:1px solid var(--line)}.weekday{text-align:center;font-size:12px;font-weight:750;color:var(--muted);padding:9px 3px}.day{min-height:115px;padding:7px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:white;min-width:0}.day.today{background:#eef2ff}.day-num{font-size:12px;font-weight:750;margin-bottom:5px}.event{display:block;width:100%;text-align:left;padding:4px 6px;margin:3px 0;background:#e0e7ff;color:#3730a3;font-size:11px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;border-radius:5px}.add-day{font-size:10px;color:#64748b;background:transparent;padding:2px}.empty{padding:22px;text-align:center;color:var(--muted)}.modal-bg{display:none;position:fixed;inset:0;background:#0f172acc;z-index:5;align-items:center;justify-content:center;padding:15px}.modal-bg.open{display:flex}.modal{background:white;border-radius:16px;padding:22px;width:min(100%,500px);max-height:92vh;overflow:auto}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0}.close{background:transparent;font-size:24px;padding:0 5px;color:#64748b}.note{background:#fffbeb;border:1px solid #fde68a;color:#854d0e;border-radius:10px;padding:12px;font-size:13px}.toast{position:fixed;right:16px;top:16px;background:#166534;color:white;padding:12px 16px;border-radius:10px;box-shadow:0 8px 25px #0002;z-index:10;display:none;max-width:min(90vw,420px)}.toast.error{background:#be123c}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.checkdays{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0}.checkdays label{font-size:13px}.muted{color:var(--muted);font-size:13px}.backup-actions{display:flex;gap:9px;flex-wrap:wrap}.filebtn{display:inline-flex;align-items:center;gap:7px}.small{font-size:12px}
-@media(max-width:760px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.two{grid-template-columns:1fr}.day{min-height:86px;padding:4px}.event{font-size:9px;padding:3px}.weekday{font-size:10px}.add-day{display:none}}
-@media(max-width:430px){main{padding:15px 10px}.heading h2{font-size:21px}.day{min-height:70px}.event{font-size:8px}.top{padding:14px}.nav{padding:7px}}
-@media print{@page{size:landscape;margin:1cm}.top,.nav,.no-print,.add-day{display:none!important}body{background:white}main{padding:0;max-width:none}.view{display:none!important}.view.active{display:block!important}.card,.table-wrap{box-shadow:none}.day{min-height:90px}}
+:root{font-family:Arial,Helvetica,sans-serif;color:#1f2937;background:#f3f6fa}
+*{box-sizing:border-box}body{margin:0;padding:22px}.wrap{max-width:1100px;margin:auto}
+header{background:#174a78;color:white;padding:22px;border-radius:14px;margin-bottom:18px}
+h1{margin:0 0 6px;font-size:25px}header p{margin:0;color:#e5eef8}
+.panel{background:white;border:1px solid #dce4ee;border-radius:13px;padding:18px;margin:14px 0;box-shadow:0 2px 8px #14263b0b}
+h2{font-size:19px;margin:0 0 14px;color:#174a78}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:13px}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}
+input,select{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;background:white;font-size:15px}
+.day-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.day{border:1px solid #dbe4ee;border-radius:9px;padding:11px;background:#f9fbfd}
+.day label{margin-bottom:8px}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+button{border:0;border-radius:8px;padding:10px 14px;font-weight:700;cursor:pointer;background:#1769aa;color:white}
+button.secondary{background:#e8eef5;color:#20364b}button.danger{background:#b42318}button:hover{filter:brightness(.96)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:760px}
+th,td{padding:10px;border-bottom:1px solid #e5eaf0;text-align:left;vertical-align:middle}
+th{background:#f1f5f9;color:#334155}
+.table-wrap{overflow-x:auto}
+.small{font-size:12px;color:#64748b}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.stat{background:#edf5fc;border-radius:9px;padding:10px 13px;font-size:13px}
+.stat strong{font-size:18px;color:#174a78;display:block}
+.notice{padding:11px;border-radius:8px;background:#fff8e6;color:#805b12;font-size:13px;margin-top:12px}
+.empty{color:#64748b;text-align:center;padding:22px}
+@media(max-width:600px){body{padding:12px}header{padding:18px}h1{font-size:22px}}
 </style>
 </head>
 <body>
-<div class="top"><div><h1>Predicación Pública</h1><p>Aplicación independiente · almacenamiento local</p></div><div class="row no-print"><button class="secondary" onclick="window.print()">Imprimir</button><button class="danger" onclick="clearAll()">Borrar todos los datos</button></div></div>
-<nav class="nav no-print">
-<button class="active" data-view="inicio" onclick="setView('inicio')">Resumen</button><button data-view="calendario" onclick="setView('calendario')">Calendario</button><button data-view="programar" onclick="setView('programar')">Programar turnos</button><button data-view="registros" onclick="setView('registros')">Todos los turnos</button><button data-view="exportar" onclick="setView('exportar')">Excel y copias</button>
-</nav>
-<main>
-<section id="view-inicio" class="view active">
-<div class="heading"><div><h2>Panel de programación</h2><p class="sub">Los datos se guardan en este navegador y en este dispositivo.</p></div><button class="primary no-print" onclick="openForm()">+ Programar turno</button></div>
-<div class="grid stats">
-<div class="card"><div class="stat-label">Turnos del mes</div><div id="statMonth" class="stat-num">0</div></div><div class="card"><div class="stat-label">Turnos futuros</div><div id="statFuture" class="stat-num">0</div></div><div class="card"><div class="stat-label">Ubicaciones distintas</div><div id="statPlaces" class="stat-num">0</div></div><div class="card"><div class="stat-label">Publicadores registrados</div><div id="statPublishers" class="stat-num">0</div></div>
+<div class="wrap">
+<header>
+<h1>Registro de publicadores</h1>
+<p>Registro mensual de disponibilidad para la predicación pública.</p>
+</header>
+
+<section class="panel">
+<h2>Registrar disponibilidad</h2>
+<div class="grid">
+<div><label for="nombre">Nombre del publicador</label><input id="nombre" type="text" maxlength="100" placeholder="Nombre y apellido"></div>
+<div><label for="mes">Mes de disponibilidad</label><input id="mes" type="month"></div>
 </div>
-<div class="card" style="margin-top:15px"><div class="heading"><h3 style="margin:0">Próximos turnos</h3><button class="secondary no-print" onclick="setView('registros')">Ver todos</button></div><div id="upcoming"></div></div>
-<div class="note" style="margin-top:15px"><b>Importante:</b> los registros se guardan únicamente en este navegador. No se comparten automáticamente con otros equipos. Haz copias de seguridad periódicas desde “Excel y copias”.</div>
+<p class="small">De lunes a viernes, seleccione una opción para cada día.</p>
+<div class="day-grid" id="dias"></div>
+<div class="grid" style="margin-top:14px">
+<div><label for="sabados">¿Cuántos sábados puede participar este mes?</label><input id="sabados" type="number" min="0" max="5" value="0"></div>
+<div><label for="domingos">¿Cuántos domingos puede participar este mes?</label><input id="domingos" type="number" min="0" max="5" value="0"></div>
+</div>
+<div class="actions">
+<button id="guardar">Guardar registro</button>
+<button class="secondary" id="limpiar">Limpiar formulario</button>
+</div>
+<div class="notice">Los datos se guardan únicamente en este navegador y dispositivo. No se comparten automáticamente con otros publicadores ni con otros equipos.</div>
 </section>
-<section id="view-calendario" class="view">
-<div class="heading"><div><h2>Calendario mensual</h2><p class="sub">Pulsa un turno para editarlo.</p></div><button class="primary no-print" onclick="openForm()">+ Agregar turno</button></div>
-<div class="card"><div class="calendar-head"><button class="secondary" onclick="changeMonth(-1)">← Anterior</button><h3 id="monthLabel" style="margin:0;text-transform:capitalize"></h3><button class="secondary" onclick="changeMonth(1)">Siguiente →</button></div>
-<div class="calendar-grid"><div class="weekday">Lun</div><div class="weekday">Mar</div><div class="weekday">Mié</div><div class="weekday">Jue</div><div class="weekday">Vie</div><div class="weekday">Sáb</div><div class="weekday">Dom</div></div><div id="calendarGrid" class="calendar-grid"></div></div>
-</section>
-<section id="view-programar" class="view">
-<div class="heading"><div><h2>Programar turnos</h2><p class="sub">Crea un turno o repite una programación en días específicos.</p></div></div>
-<div class="grid two">
-<form id="singleForm" class="card form-card"><h3>Turno individual</h3><p class="sub">Una fecha y un turno.</p>
-<label class="field"><span>FECHA</span><input id="sFecha" type="date" required></label><label class="field"><span>HORARIO / TURNO</span><input id="sHorario" required placeholder="Ej. 10:00 - 11:30"></label><label class="field"><span>UBICACIÓN</span><input id="sUbicacion" required></label><label class="field"><span>PUBLICADORES</span><input id="sPublicadores" required placeholder="Nombre 1 y Nombre 2"></label><div class="form-actions"><button class="primary">Guardar turno</button></div></form>
-<form id="repeatForm" class="card form-card"><h3>Programación repetida</h3><p class="sub">Crea el mismo turno en las fechas coincidentes.</p>
-<div class="grid two"><label class="field"><span>DESDE</span><input id="rDesde" type="date" required></label><label class="field"><span>HASTA</span><input id="rHasta" type="date" required></label></div><div class="field"><span>DÍAS DE LA SEMANA</span><div class="checkdays"><label><input type="checkbox" name="weekday" value="1"> Lun</label><label><input type="checkbox" name="weekday" value="2"> Mar</label><label><input type="checkbox" name="weekday" value="3"> Mié</label><label><input type="checkbox" name="weekday" value="4"> Jue</label><label><input type="checkbox" name="weekday" value="5"> Vie</label><label><input type="checkbox" name="weekday" value="6"> Sáb</label><label><input type="checkbox" name="weekday" value="0"> Dom</label></div></div>
-<label class="field"><span>HORARIO / TURNO</span><input id="rHorario" required placeholder="Ej. 10:00 - 11:30"></label><label class="field"><span>UBICACIÓN</span><input id="rUbicacion" required></label><label class="field"><span>PUBLICADORES</span><input id="rPublicadores" required></label><button class="success">Generar programación</button><p class="muted small">Se creará un registro por cada fecha seleccionada. Revisa el rango antes de confirmar.</p></form>
+
+<section class="panel">
+<h2>Registros guardados</h2>
+<div class="grid">
+<div><label for="filtroMes">Consultar mes</label><input id="filtroMes" type="month"></div>
+<div><label for="buscar">Buscar publicador</label><input id="buscar" type="search" placeholder="Escriba un nombre"></div>
+</div>
+<div class="stats" id="resumen"></div>
+<div class="table-wrap" style="margin-top:14px">
+<table>
+<thead><tr><th>Publicador</th><th>Lun.</th><th>Mar.</th><th>Mié.</th><th>Jue.</th><th>Vie.</th><th>Sábados</th><th>Domingos</th><th>Acciones</th></tr></thead>
+<tbody id="lista"></tbody>
+</table>
+</div>
+<div class="actions">
+<button class="secondary" id="exportar">Exportar mes a Excel (CSV)</button>
+<button class="secondary" id="backup">Descargar copia JSON</button>
+<button class="secondary" id="restaurar">Restaurar copia JSON</button>
+<input id="archivo" type="file" accept="application/json,.json" hidden>
 </div>
 </section>
-<section id="view-registros" class="view">
-<div class="heading"><div><h2>Todos los turnos</h2><p class="sub">Consulta, filtra, edita o elimina registros.</p></div><button class="primary no-print" onclick="openForm()">+ Agregar turno</button></div>
-<div class="filters no-print"><input id="filterMonth" type="month" aria-label="Filtrar por mes"><input id="filterText" placeholder="Buscar ubicación o publicador…" style="flex:1;min-width:180px"><button class="secondary" onclick="clearFilters()">Limpiar</button></div>
-<div class="table-wrap"><table><thead><tr><th>Fecha</th><th>Horario</th><th>Ubicación</th><th>Publicadores</th><th class="no-print">Acciones</th></tr></thead><tbody id="rows"></tbody></table></div>
-</section>
-<section id="view-exportar" class="view">
-<div class="heading"><div><h2>Excel y copias de seguridad</h2><p class="sub">Exporta tus turnos y conserva una copia de los datos.</p></div></div>
-<div class="grid two">
-<div class="card"><h3>Exportar a Excel</h3><p class="sub">Se descarga un archivo CSV que Excel abre directamente.</p><label class="field"><span>MES QUE DESEAS EXPORTAR</span><input id="exportMonth" type="month"></label><div class="backup-actions"><button class="success" onclick="exportExcel('month')">Descargar mes (.csv)</button><button class="primary" onclick="exportExcel('all')">Descargar todos (.csv)</button></div></div>
-<div class="card"><h3>Copia de seguridad</h3><p class="sub">Guarda o restaura todos los registros mediante un archivo JSON.</p><div class="backup-actions" style="margin-top:15px"><button class="primary" onclick="backupJSON()">Descargar copia (.json)</button><label class="secondary filebtn">Restaurar copia<input id="restoreFile" type="file" accept=".json,application/json" hidden onchange="restoreJSON(event)"></label></div><p class="muted small" style="margin-top:12px">Al restaurar, los registros del archivo se agregan a los actuales. Los identificadores se regeneran.</p></div>
+<p class="small">Códigos: M = mañana · T = tarde · N = noche · MD = mediodía · TD = todo el día · NP = no puedo.</p>
 </div>
-<div class="note" style="margin-top:15px"><b>Privacidad y conservación:</b> los datos se guardan en el almacenamiento local del navegador (localStorage). Si borras los datos del navegador, cambias de perfil de Windows o utilizas otro equipo, los registros no aparecerán allí. Exporta copias JSON regularmente.</div>
-</section>
-</main>
-<div id="modalBg" class="modal-bg"><form id="editForm" class="modal">
-<div class="modal-head"><h3 id="modalTitle">Nuevo turno</h3><button type="button" class="close" onclick="closeForm()">×</button></div><input id="editId" type="hidden">
-<label class="field"><span>FECHA</span><input id="eFecha" type="date" required></label><label class="field"><span>HORARIO / TURNO</span><input id="eHorario" required></label><label class="field"><span>UBICACIÓN</span><input id="eUbicacion" required></label><label class="field"><span>PUBLICADORES</span><input id="ePublicadores" required></label>
-<div class="row" style="justify-content:flex-end;margin-top:18px"><button type="button" class="secondary" onclick="closeForm()">Cancelar</button><button class="primary">Guardar</button></div>
-</form></div><div id="toast" class="toast"></div>
 <script>
+(() => {
 'use strict';
-const STORE_KEY='predicacionPublica_local_v1';
-let records=loadRecords(),calendarDate=new Date();
+const KEY='registroPublicadores_local_v1';
+const dias=[['lunes','Lunes'],['martes','Martes'],['miercoles','Miércoles'],['jueves','Jueves'],['viernes','Viernes']];
+const opciones=[['','— Seleccionar —'],['M','M — Mañana'],['T','T — Tarde'],['N','N — Noche'],['MD','MD — Mediodía'],['TD','TD — Todo el día'],['NP','NP — No puedo']];
+let registros=[], editId=null;
 const $=id=>document.getElementById(id);
-function loadRecords(){try{const v=JSON.parse(localStorage.getItem(STORE_KEY)||'[]');return Array.isArray(v)?v:[]}catch(e){return[]}}
-function saveRecords(){try{localStorage.setItem(STORE_KEY,JSON.stringify(records));refresh();return true}catch(e){notify('No se pudieron guardar los datos. Comprueba el espacio disponible del navegador.',true);return false}}
-function uid(){return 'pp-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,9)}
-function todayISO(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-function notify(msg,error=false){const t=$('toast');t.textContent=msg;t.className='toast'+(error?' error':'');t.style.display='block';clearTimeout(notify.timer);notify.timer=setTimeout(()=>t.style.display='none',3800)}
-function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function dateLabel(s){if(!s)return'-';const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d).toLocaleDateString('es',{day:'2-digit',month:'2-digit',year:'numeric'})}
-function setView(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));$('view-'+v).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));refresh()}
-function refresh(){renderStats();renderUpcoming();renderCalendar();renderRows();$('exportMonth').value=$('exportMonth').value||todayISO().slice(0,7)}
-function renderStats(){const m=todayISO().slice(0,7),month=records.filter(r=>(r.fecha||'').startsWith(m));$('statMonth').textContent=month.length;$('statFuture').textContent=records.filter(r=>(r.fecha||'')>=todayISO()).length;$('statPlaces').textContent=new Set(records.map(r=>(r.ubicacion||'').trim().toLowerCase()).filter(Boolean)).size;const names=new Set(records.flatMap(r=>(r.publicadores||'').split(/[,;]+/).map(x=>x.trim().toLowerCase()).filter(Boolean)));$('statPublishers').textContent=names.size}
-function renderUpcoming(){const a=records.filter(r=>(r.fecha||'')>=todayISO()).sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||'')).slice(0,6);$('upcoming').innerHTML=a.length?a.map(r=>`<div class="row" style="justify-content:space-between;padding:11px 0;border-top:1px solid var(--line)"><div><b>${esc(dateLabel(r.fecha))} · ${esc(r.horario)}</b><div class="muted">${esc(r.ubicacion)} — ${esc(r.publicadores)}</div></div><button class="secondary no-print" onclick="editRecord('${r.id}')">Editar</button></div>`).join(''):'<div class="empty">No hay turnos futuros programados.</div>'}
-function renderCalendar(){const y=calendarDate.getFullYear(),m=calendarDate.getMonth(),first=(new Date(y,m,1).getDay()+6)%7,days=new Date(y,m+1,0).getDate();$('monthLabel').textContent=new Date(y,m,1).toLocaleDateString('es',{month:'long',year:'numeric'});let out='';for(let i=0;i<first;i++)out+='<div class="day" style="background:#f8fafc"></div>';for(let d=1;d<=days;d++){const key=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,items=records.filter(r=>r.fecha===key).sort((a,b)=>(a.horario||'').localeCompare(b.horario||''));out+=`<div class="day ${key===todayISO()?'today':''}"><div class="day-num">${d}</div>${items.map(r=>`<button class="event" title="${esc(r.ubicacion)} · ${esc(r.publicadores)}" onclick="editRecord('${r.id}')">${esc(r.horario)} · ${esc(r.ubicacion)}</button>`).join('')}<button class="add-day no-print" onclick="openForm(null,'${key}')">+ Agregar</button></div>`}for(let i=first+days;i%7!==0;i++)out+='<div class="day" style="background:#f8fafc"></div>';$('calendarGrid').innerHTML=out}
-function changeMonth(n){calendarDate=new Date(calendarDate.getFullYear(),calendarDate.getMonth()+n,1);renderCalendar()}
-function filtered(){const m=$('filterMonth').value,q=$('filterText').value.trim().toLowerCase();return records.filter(r=>(!m||(r.fecha||'').startsWith(m))&&(!q||[r.ubicacion,r.publicadores,r.horario].join(' ').toLowerCase().includes(q))).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''))}
-function renderRows(){const a=filtered();$('rows').innerHTML=a.length?a.map(r=>`<tr><td><b>${esc(dateLabel(r.fecha))}</b></td><td>${esc(r.horario)}</td><td>${esc(r.ubicacion)}</td><td>${esc(r.publicadores)}</td><td class="no-print"><div class="row"><button class="secondary" onclick="editRecord('${r.id}')">Editar</button><button class="danger" onclick="deleteRecord('${r.id}')">Eliminar</button></div></td></tr>`).join(''):'<tr><td colspan="5" class="empty">No se encontraron turnos.</td></tr>'}
-$('filterMonth').addEventListener('change',renderRows);$('filterText').addEventListener('input',renderRows);
-function clearFilters(){$('filterMonth').value='';$('filterText').value='';renderRows()}
-function openForm(r=null,date=''){ $('editForm').reset();$('editId').value=r?.id||'';$('modalTitle').textContent=r?'Editar turno':'Nuevo turno';$('eFecha').value=r?.fecha||date||todayISO();$('eHorario').value=r?.horario||'';$('eUbicacion').value=r?.ubicacion||'';$('ePublicadores').value=r?.publicadores||'';$('modalBg').classList.add('open')}
-function closeForm(){$('modalBg').classList.remove('open')}
-function editRecord(id){const r=records.find(x=>x.id===id);if(r)openForm(r)}
-$('editForm').addEventListener('submit',e=>{e.preventDefault();const id=$('editId').value,data={id:id||uid(),fecha:$('eFecha').value,horario:$('eHorario').value.trim(),ubicacion:$('eUbicacion').value.trim(),publicadores:$('ePublicadores').value.trim(),updatedAt:new Date().toISOString()};if(id){const i=records.findIndex(x=>x.id===id);if(i>=0)records[i]=data}else records.push(data);if(saveRecords()){closeForm();notify(id?'Turno actualizado':'Turno guardado')}});
-function deleteRecord(id){if(!confirm('¿Eliminar este turno? Esta acción no se puede deshacer.'))return;records=records.filter(r=>r.id!==id);if(saveRecords())notify('Turno eliminado')}
-$('singleForm').addEventListener('submit',e=>{e.preventDefault();records.push({id:uid(),fecha:$('sFecha').value,horario:$('sHorario').value.trim(),ubicacion:$('sUbicacion').value.trim(),publicadores:$('sPublicadores').value.trim(),updatedAt:new Date().toISOString()});if(saveRecords()){e.target.reset();$('sFecha').value=todayISO();notify('Turno guardado localmente')}});
-$('repeatForm').addEventListener('submit',e=>{e.preventDefault();const start=$('rDesde').value,end=$('rHasta').value,days=[...document.querySelectorAll('input[name="weekday"]:checked')].map(x=>Number(x.value));if(!days.length){notify('Selecciona al menos un día de la semana.',true);return}if(end<start){notify('La fecha final debe ser igual o posterior a la inicial.',true);return}const a=new Date(start+'T12:00:00'),b=new Date(end+'T12:00:00'),dates=[];for(let d=new Date(a);d<=b;d.setDate(d.getDate()+1)){if(days.includes(d.getDay()))dates.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`)}if(!dates.length){notify('No hay fechas coincidentes.',true);return}if(dates.length>365){notify('El rango supera 365 turnos. Reduce el período.',true);return}if(!confirm(`Se crearán ${dates.length} turnos. ¿Continuar?`))return;const h=$('rHorario').value.trim(),u=$('rUbicacion').value.trim(),p=$('rPublicadores').value.trim();dates.forEach(fecha=>records.push({id:uid(),fecha,horario:h,ubicacion:u,publicadores:p,updatedAt:new Date().toISOString()}));if(saveRecords()){e.target.reset();notify(`${dates.length} turnos creados localmente.`)}});
-function csvCell(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
-function download(content,name,type){const blob=new Blob([content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-function exportExcel(scope){const month=$('exportMonth').value;if(scope==='month'&&!month){notify('Selecciona el mes que deseas exportar.',true);return}const data=records.filter(r=>scope==='all'||(r.fecha||'').startsWith(month)).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));if(!data.length){notify('No hay registros para exportar.',true);return}const lines=[['Fecha','Horario / Turno','Ubicación','Publicadores'],...data.map(r=>[r.fecha,r.horario,r.ubicacion,r.publicadores])];const csv='\uFEFF'+lines.map(row=>row.map(csvCell).join(';')).join('\r\n');download(csv,scope==='all'?'Predicacion_Publica_Todos.csv':`Predicacion_Publica_${month}.csv`,'text/csv;charset=utf-8');notify(`${data.length} turnos exportados. Excel puede abrir el archivo CSV.`)}
-function backupJSON(){const payload={app:'Predicación Pública Local',version:1,exportedAt:new Date().toISOString(),records};download(JSON.stringify(payload,null,2),'Copia_Predicacion_Publica_'+todayISO()+'.json','application/json;charset=utf-8');notify('Copia de seguridad descargada.')}
-function restoreJSON(e){const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(reader.result),arr=Array.isArray(obj)?obj:obj.records;if(!Array.isArray(arr))throw new Error('Formato no reconocido');const clean=arr.map(r=>({id:uid(),fecha:String(r.fecha||''),horario:String(r.horario||''),ubicacion:String(r.ubicacion||''),publicadores:String(r.publicadores||''),updatedAt:new Date().toISOString()})).filter(r=>r.fecha);if(!confirm(`Se agregarán ${clean.length} registros a los ${records.length} actuales. ¿Continuar?`))return;records.push(...clean);if(saveRecords())notify(`${clean.length} registros restaurados.`)}catch(err){notify('No se pudo restaurar: '+err.message,true)}finally{$('restoreFile').value=''}};reader.readAsText(file)}
-function clearAll(){if(!confirm('ATENCIÓN: se eliminarán todos los turnos guardados en este navegador. Descarga primero una copia si deseas conservarlos. ¿Continuar?'))return;if(!confirm('Confirmación final: ¿borrar definitivamente todos los registros locales?'))return;records=[];if(saveRecords())notify('Se eliminaron los registros locales.')}
-$('sFecha').value=todayISO();$('rDesde').value=todayISO();$('exportMonth').value=todayISO().slice(0,7);refresh();
+const hoy=new Date(), mesActual=`${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,'0')}`;
+$('mes').value=mesActual;$('filtroMes').value=mesActual;
+function cargar(){try{const x=JSON.parse(localStorage.getItem(KEY)||'[]');registros=Array.isArray(x)?x:[]}catch{registros=[]}}
+function persistir(){localStorage.setItem(KEY,JSON.stringify(registros))}
+function crearSelect(id,label){const box=document.createElement('div');box.className='day';const l=document.createElement('label');l.htmlFor=id;l.textContent=label;const s=document.createElement('select');s.id=id;opciones.forEach(([v,t])=>{const o=document.createElement('option');o.value=v;o.textContent=t;s.append(o)});box.append(l,s);return box}
+function construirDias(){dias.forEach(([id,n])=>$('dias').append(crearSelect(id,n)))}
+function limpiar(){editId=null;$('nombre').value='';dias.forEach(([id])=>$(id).value='');$('sabados').value=0;$('domingos').value=0;$('guardar').textContent='Guardar registro'}
+function guardar(){
+ const nombre=$('nombre').value.trim(),mes=$('mes').value;
+ if(!nombre){alert('Escriba el nombre del publicador.');$('nombre').focus();return}
+ if(!mes){alert('Seleccione el mes.');return}
+ const disponibilidad={};dias.forEach(([id])=>disponibilidad[id]=$(id).value);
+ const sabados=Number($('sabados').value),domingos=Number($('domingos').value);
+ if(!Number.isInteger(sabados)||sabados<0||sabados>5||!Number.isInteger(domingos)||domingos<0||domingos>5){alert('Indique una cantidad válida de 0 a 5 para sábados y domingos.');return}
+ const duplicado=registros.find(r=>r.mes===mes&&r.nombre.toLocaleLowerCase()===nombre.toLocaleLowerCase()&&r.id!==editId);
+ if(duplicado){alert('Ya existe un registro de este publicador para ese mes. Puede editarlo desde la tabla.');return}
+ const ahora=new Date().toISOString();
+ if(editId){const i=registros.findIndex(r=>r.id===editId);if(i>=0)registros[i]={...registros[i],nombre,mes,disponibilidad,sabados,domingos,actualizado:ahora}}
+ else registros.push({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),nombre,mes,disponibilidad,sabados,domingos,creado:ahora,actualizado:ahora});
+ persistir();limpiar();$('filtroMes').value=mes;render();
+}
+function editar(id){const r=registros.find(x=>x.id===id);if(!r)return;editId=id;$('nombre').value=r.nombre;$('mes').value=r.mes;dias.forEach(([d])=>$(d).value=r.disponibilidad?.[d]||'');$('sabados').value=r.sabados??0;$('domingos').value=r.domingos??0;$('guardar').textContent='Actualizar registro';window.scrollTo({top:0,behavior:'smooth'})}
+function eliminar(id){const r=registros.find(x=>x.id===id);if(!r||!confirm(`¿Eliminar el registro de ${r.nombre}?`))return;registros=registros.filter(x=>x.id!==id);persistir();render()}
+function celda(txt){const td=document.createElement('td');td.textContent=txt??'';return td}
+function render(){
+ const mes=$('filtroMes').value, q=$('buscar').value.trim().toLocaleLowerCase();
+ const items=registros.filter(r=>(!mes||r.mes===mes)&&r.nombre.toLocaleLowerCase().includes(q)).sort((a,b)=>a.nombre.localeCompare(b.nombre,'es'));
+ const tb=$('lista');tb.replaceChildren();
+ if(!items.length){const tr=document.createElement('tr'),td=celda('No hay registros para los criterios seleccionados.');td.colSpan=9;td.className='empty';tr.append(td);tb.append(tr)}
+ items.forEach(r=>{const tr=document.createElement('tr');tr.append(celda(r.nombre));dias.forEach(([d])=>tr.append(celda(r.disponibilidad?.[d]||'—')));tr.append(celda(r.sabados),celda(r.domingos));const td=document.createElement('td');const e=document.createElement('button');e.textContent='Editar';e.className='secondary';e.onclick=()=>editar(r.id);const b=document.createElement('button');b.textContent='Eliminar';b.className='danger';b.style.marginLeft='5px';b.onclick=()=>eliminar(r.id);td.append(e,b);tr.append(td);tb.append(tr)});
+ const sumSab=items.reduce((s,r)=>s+Number(r.sabados||0),0),sumDom=items.reduce((s,r)=>s+Number(r.domingos||0),0);
+ $('resumen').innerHTML=`<div class="stat"><strong>${items.length}</strong>Publicadores registrados</div><div class="stat"><strong>${sumSab}</strong>Disponibilidades de sábado</div><div class="stat"><strong>${sumDom}</strong>Disponibilidades de domingo</div>`;
+}
+function csv(){const mes=$('filtroMes').value;if(!mes){alert('Seleccione un mes para exportar.');return}const rows=[['Mes','Publicador','Lunes','Martes','Miércoles','Jueves','Viernes','Cantidad sábados','Cantidad domingos']];registros.filter(r=>r.mes===mes).sort((a,b)=>a.nombre.localeCompare(b.nombre,'es')).forEach(r=>rows.push([r.mes,r.nombre,...dias.map(([d])=>r.disponibilidad?.[d]||''),r.sabados,r.domingos]));const esc=v=>'"'+String(v??'').replace(/"/g,'""')+'"';const content='\\ufeff'+rows.map(row=>row.map(esc).join(';')).join('\\r\\n');descargar(new Blob([content],{type:'text/csv;charset=utf-8'}),`registro_publicadores_${mes}.csv`)}
+function descargar(blob,nombre){const a=document.createElement('a'),u=URL.createObjectURL(blob);a.href=u;a.download=nombre;a.click();URL.revokeObjectURL(u)}
+function backup(){descargar(new Blob([JSON.stringify({tipo:'registro-publicadores',version:1,exportado:new Date().toISOString(),registros},null,2)],{type:'application/json'}),'copia_registro_publicadores.json')}
+function restaurar(file){const fr=new FileReader();fr.onload=()=>{try{const data=JSON.parse(fr.result),arr=Array.isArray(data)?data:data.registros;if(!Array.isArray(arr))throw Error();if(!confirm(`Se importarán ${arr.length} registros. Los registros con el mismo identificador serán reemplazados. ¿Continuar?`))return;const map=new Map(registros.map(r=>[r.id,r]));arr.forEach(r=>{if(r&&r.id&&r.nombre&&r.mes)map.set(r.id,r)});registros=[...map.values()];persistir();render();alert('Copia restaurada.')}catch{alert('El archivo no tiene un formato válido.')}};fr.readAsText(file)}
+construirDias();cargar();render();
+$('guardar').onclick=guardar;$('limpiar').onclick=limpiar;$('filtroMes').onchange=render;$('buscar').oninput=render;$('exportar').onclick=csv;$('backup').onclick=backup;$('restaurar').onclick=()=>$('archivo').click();$('archivo').onchange=e=>{if(e.target.files[0])restaurar(e.target.files[0]);e.target.value=''};
+})();
 </script>
-</body></html>
+</body>
+</html>
